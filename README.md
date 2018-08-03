@@ -12,13 +12,5 @@ I started learning Python and became interested in web scraping. I found a very 
 # Usage
 You can simply run the script after you provide the necessary information. It will download profile pictures of the girls from Tinder based on the location. All the images are in images folder.
 
-## *I realized you simply don't need to do any of the following:*
-~~The only way you can make changes to the image folder is deleting or moving all the images to somewhere else. After doing so, please follow these steps:~~
-
-~~1. Open 'last_index.txt.'~~
-~~2. Erase all the content.~~
-~~3. Enter 0.~~
-~~4. Save it.~~
-
 # Other
 Since I'm a beginner, I know my code sucks, so I'm open to suggestions. Thank you!
