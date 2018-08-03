@@ -2,17 +2,26 @@ import pynder
 import urllib.request
 import ssl
 
-LAT = 38.897676    # latitude of the location
-LON = -77.036530   # longtitude of the location
+# latitude and longtitude of the location
+LAT = 38.897676
+LON = -77.036530
 
-facebook_id = ''        # your Facebook ID
-facebook_token = ''     # your Facebook Token
+# your Facebook ID and token
+facebook_id = ''
+facebook_token = ''
 
-session = pynder.Session(facebook_id=facebook_id, facebook_token=facebook_token) # authentication
-session.update_location(LAT, LON) # updates latitude and longitude
-users = session.nearby_users() # returns a iterable of users nearby
+# authentication
+session = pynder.Session(facebook_id=facebook_id,
+                         facebook_token=facebook_token)
 
-ssl._create_default_https_context = ssl._create_unverified_context # don't delete this
+# updates latitude and longitude
+session.update_location(LAT, LON)
+
+# returns a iterable of users nearby
+users = session.nearby_users()
+
+# don't delete this
+ssl._create_default_https_context = ssl._create_unverified_context
 
 working_directory = "./images"
 
@@ -21,18 +30,19 @@ with open(working_directory + '/last_index.txt', 'r') as f:
     x = int(f.read())
 
 try:
-    print("===============================================================================")
+    print("==================================================================")
     for user in users:
         print("Name: " + user.name)
         print("Age:  " + str(user.age))
 
         if user.instagram_username:
-            print ("IG:   " + user.instagram_username)
+            print("IG:   " + user.instagram_username)
 
         number_of_photos = len(user.photos)
 
         # download images
-        for i, j in zip(range(x, (x + number_of_photos + 1)), range(0, number_of_photos)):
+        for i, j in zip(range(x, (x + number_of_photos + 1)),
+                        range(0, number_of_photos)):
             filename = "image" + str(i) + ".jpg"
             urllib.request.urlretrieve(user.photos[j], "./images/" + filename)
 
@@ -46,6 +56,6 @@ try:
 
         print(user.bio)
         print("Distance: " + str(user.distance_km) + "km")
-        print("===============================================================================")
+        print("==============================================================")
 except KeyError:
     print("Complete")
