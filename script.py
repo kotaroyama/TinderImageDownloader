@@ -1,6 +1,5 @@
 import pynder
 import urllib.request
-import ssl
 
 # latitude and longtitude of the location
 LAT = 38.897676
@@ -19,9 +18,6 @@ session.update_location(LAT, LON)
 
 # returns a iterable of users nearby
 users = session.nearby_users()
-
-# don't delete this
-ssl._create_default_https_context = ssl._create_unverified_context
 
 working_directory = "./images"
 
