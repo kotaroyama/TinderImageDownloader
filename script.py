@@ -10,8 +10,7 @@ facebook_id = ''
 facebook_token = ''
 
 # authentication
-session = pynder.Session(facebook_id=facebook_id,
-                         facebook_token=facebook_token)
+session = pynder.Session(facebook_id, facebook_token)
 
 # updates latitude and longitude
 session.update_location(LAT, LON)
