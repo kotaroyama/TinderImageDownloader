@@ -1,16 +1,37 @@
 import pynder
 import urllib.request
+import os
+import re
+
+
+def getNumOfDownloadedImages():
+    list_of_index = []
+    number_of_images = 0
+
+    pattern = re.compile(r"[0-9]+")
+
+    for file in os.listdir("./images"):
+        match = re.search(pattern, file)
+
+        if (match is not None):
+            index = match.group(0)
+            list_of_index.append(int(index))
+
+    number_of_images = max(list_of_index) + 1
+
+    return number_of_images
+
 
 # latitude and longtitude of the location
-LAT = 38.897676
-LON = -77.036530
+LAT = 37.786430
+LON = -122.409561
 
 # your Facebook ID and token
-facebook_id = ''
-facebook_token = ''
+
+XAuthToken = 'a02245eb-690c-444d-855e-af3d6e7c02dd'
 
 # authentication
-session = pynder.Session(facebook_id, facebook_token)
+session = pynder.Session(XAuthToken=XAuthToken)
 
 # updates latitude and longitude
 session.update_location(LAT, LON)
@@ -19,10 +40,6 @@ session.update_location(LAT, LON)
 users = session.nearby_users()
 
 working_directory = "./images"
-
-# open and read last_index.txt
-with open(working_directory + '/last_index.txt', 'r') as f:
-    x = int(f.read())
 
 try:
     print("==================================================================")
@@ -33,17 +50,16 @@ try:
         if user.instagram_username:
             print("IG:   " + user.instagram_username)
 
-        number_of_photos = len(user.photos)
+        user_photos = list(user.photos)
+
+        number_of_photos = len(user_photos)
+        number_of_downloaded_images = getNumOfDownloadedImages()
 
         # download images
-        for i, j in zip(range(x, (x + number_of_photos + 1)),
+        for i, j in zip(range(number_of_downloaded_images, (number_of_downloaded_images + number_of_photos + 1)),
                         range(0, number_of_photos)):
             filename = "image" + str(i) + ".jpg"
-            urllib.request.urlretrieve(user.photos[j], "./images/" + filename)
-
-            if j == number_of_photos - 1:
-                with open('./images/last_index.txt', 'w') as f:
-                    f.write(str(i + 1))
+            urllib.request.urlretrieve(user_photos[j], "./images/" + filename)
 
         # show schools
         for school in user.schools:
