@@ -22,51 +22,53 @@ def getNumOfDownloadedImages():
     return number_of_images
 
 
-# latitude and longtitude of the location
-LAT = 37.786430
-LON = -122.409561
+if __name__ == "__main__":
 
-# your Facebook ID and token
+    # latitude and longtitude of the location
+    LAT = 37.786430
+    LON = -122.409561
 
-XAuthToken = 'a02245eb-690c-444d-855e-af3d6e7c02dd'
+    # your Facebook ID and token
 
-# authentication
-session = pynder.Session(XAuthToken=XAuthToken)
+    XAuthToken = 'a02245eb-690c-444d-855e-af3d6e7c02dd'
 
-# updates latitude and longitude
-session.update_location(LAT, LON)
+    # authentication
+    session = pynder.Session(XAuthToken=XAuthToken)
 
-# returns a iterable of users nearby
-users = session.nearby_users()
+    # updates latitude and longitude
+    session.update_location(LAT, LON)
 
-working_directory = "./images"
+    # returns a iterable of users nearby
+    users = session.nearby_users()
 
-try:
-    print("==================================================================")
-    for user in users:
-        print("Name: " + user.name)
-        print("Age:  " + str(user.age))
+    working_directory = "./images"
 
-        if user.instagram_username:
-            print("IG:   " + user.instagram_username)
+    try:
+        print("==================================================================")
+        for user in users:
+            print("Name: " + user.name)
+            print("Age:  " + str(user.age))
 
-        user_photos = list(user.photos)
+            if user.instagram_username:
+                print("IG:   " + user.instagram_username)
 
-        number_of_photos = len(user_photos)
-        number_of_downloaded_images = getNumOfDownloadedImages()
+            user_photos = list(user.photos)
 
-        # download images
-        for i, j in zip(range(number_of_downloaded_images, (number_of_downloaded_images + number_of_photos + 1)),
-                        range(0, number_of_photos)):
-            filename = "image" + str(i) + ".jpg"
-            urllib.request.urlretrieve(user_photos[j], "./images/" + filename)
+            number_of_photos = len(user_photos)
+            number_of_downloaded_images = getNumOfDownloadedImages()
 
-        # show schools
-        for school in user.schools:
-            print(school)
+            # download images
+            for i, j in zip(range(number_of_downloaded_images, (number_of_downloaded_images + number_of_photos + 1)),
+                            range(0, number_of_photos)):
+                filename = "image" + str(i) + ".jpg"
+                urllib.request.urlretrieve(user_photos[j], "./images/" + filename)
 
-        print(user.bio)
-        print("Distance: " + str(user.distance_km) + "km")
-        print("==============================================================")
-except KeyError:
-    print("Complete")
+            # show schools
+            for school in user.schools:
+                print(school)
+
+            print(user.bio)
+            print("Distance: " + str(user.distance_km) + "km")
+            print("==============================================================")
+    except KeyError:
+        print("Complete")
