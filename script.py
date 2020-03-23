@@ -1,5 +1,5 @@
 import pynder
-import urllib.request
+import urllib
 import os
 import re
 
