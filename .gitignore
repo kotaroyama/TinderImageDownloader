@@ -1,6 +1,4 @@
 .DS_Store
 execute.sh
 *.jpg
-manual.py
-sample.py
 time_test.py
