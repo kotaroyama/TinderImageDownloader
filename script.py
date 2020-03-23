@@ -10,9 +10,11 @@ def getNumOfDownloadedImages():
 
     pattern = re.compile(r"[0-9]+")
 
+    # Look for images in the Images directory
     for file in os.listdir("./images"):
         match = re.search(pattern, file)
 
+        # If the filename is "imageX.jpg", add the X to the list of all index
         if (match is not None):
             index = match.group(0)
             list_of_index.append(int(index))
@@ -22,8 +24,7 @@ def getNumOfDownloadedImages():
     return number_of_images
 
 
-if __name__ == "__main__":
-
+def main():
     # latitude and longtitude of the location
     LAT = 37.786430
     LON = -122.409561
@@ -41,10 +42,8 @@ if __name__ == "__main__":
     # returns a iterable of users nearby
     users = session.nearby_users()
 
-    working_directory = "./images"
-
     try:
-        print("==================================================================")
+        print("=============================================================")
         for user in users:
             print("Name: " + user.name)
             print("Age:  " + str(user.age))
@@ -57,11 +56,20 @@ if __name__ == "__main__":
             number_of_photos = len(user_photos)
             number_of_downloaded_images = getNumOfDownloadedImages()
 
+            range_for_i = range(
+                number_of_downloaded_images,
+                (number_of_downloaded_images + (number_of_photos + 1))
+            )
+
+            range_for_j = range(0, number_of_photos)
+
             # download images
-            for i, j in zip(range(number_of_downloaded_images, (number_of_downloaded_images + number_of_photos + 1)),
-                            range(0, number_of_photos)):
+            for i, j in zip(range_for_i, range_for_j):
                 filename = "image" + str(i) + ".jpg"
-                urllib.request.urlretrieve(user_photos[j], "./images/" + filename)
+                urllib.request.urlretrieve(
+                    user_photos[j],
+                    "./images/" + filename
+                )
 
             # show schools
             for school in user.schools:
@@ -69,6 +77,12 @@ if __name__ == "__main__":
 
             print(user.bio)
             print("Distance: " + str(user.distance_km) + "km")
-            print("==============================================================")
+            print(
+                "============================================================="
+            )
     except KeyError:
         print("Complete")
+
+
+if __name__ == "__main__":
+    main()
