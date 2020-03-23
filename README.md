@@ -9,8 +9,8 @@ I started learning Python and became interested in web scraping. I found a very 
 
 # Authentication and Preparations
 1. To run this script, you need to get a Facebook Authentication Token. I got mine by running [this script](https://gist.github.com/juliojgarciaperez/31ccb391cb1fbcb04dc86a16038fca24). All you need is your Facebook email and password. You can also refer to [this page](https://gist.github.com/taseppa/66fc7239c66ef285ecb28b400b556938).
-2. Please get your XAuthToken by referring to [this page](https://github.com/cjekel/tindetheus/issues/7#issuecomment-48887853).
-3. Also, you need your Facebook ID. You can get it from [this website](https://findmyfbid.in/).If this website doesn't work, you can go to your Facebook profile page, click on the profile picture, and the "fbid" should be included in the URL. [Example](https://www.quora.com/How-do-I-find-my-Facebook-user-ID)
+2. Also, you need your Facebook ID. You can get it from [this website](https://findmyfbid.in/).If this website doesn't work, you can go to your Facebook profile page, click on the profile picture, and the "fbid" should be included in the URL. [Example](https://www.quora.com/How-do-I-find-my-Facebook-user-ID)
+3. Please get your XAuthToken by referring to [this page](https://github.com/cjekel/tindetheus/issues/7#issuecomment-48887853).
 4. You have to [get the latitude and longitude of the location](https://www.latlong.net/). Times Square is the default location.
 
 # Usage
