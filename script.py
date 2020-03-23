@@ -32,13 +32,13 @@ def main():
     #       LAT = 40.759010
     #       LON = -73.984474
 
-    LAT = 37.786430
-    LON = -122.409561
+    LAT = 40.759010
+    LON = -73.984474
 
     # Your XAuthToken
     #   To get your XAuthToken, please refer to:
     #      "https://github.com/cjekel/tindetheus/issues/7#issuecomment-488878534"
-    XAuthToken = 'a02245eb-690c-444d-855e-af3d6e7c02dd'
+    XAuthToken = ''
 
     # Authentication
     session = pynder.Session(XAuthToken=XAuthToken)
