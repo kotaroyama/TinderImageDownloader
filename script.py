@@ -26,6 +26,28 @@ def getNumOfDownloadedImages():
     return number_of_images
 
 
+def logInfo(file_name, user):
+    # Open log file
+    with open(file_name, "a") as log:
+
+        # Append all the info of the user to the log file
+        log.write(
+            f"""
+=============================================================
+Name:     {user.name}
+Age:      {str(user.age)}
+IG:       {user.instagram_username}\n
+{user.bio}\n
+Distance: {user.distance_km} km
+            """
+        )
+
+        for school in user.schools:
+            log.write(f"School:   {school}")
+
+        log.close()
+
+
 def main():
     # Latitude and longtitude of the location
     #   The default location is Times Square:
@@ -43,8 +65,16 @@ def main():
     # Authentication
     session = pynder.Session(XAuthToken=XAuthToken)
 
-    # Update latitude and longitude
+    # Update latitude and longitude and log them
     session.update_location(LAT, LON)
+    with open("log.txt", "a") as log:
+        log.write(
+            f"""
+\n\n
+LAT = {LAT}
+LON = {LON}\n
+            """
+        )
 
     # Return the iterable of users nearby
     users = session.nearby_users()
@@ -63,6 +93,16 @@ def main():
             # Print the Instagram username
             if user.instagram_username:
                 print("IG:   " + user.instagram_username)
+
+            # Print the schools
+            for school in user.schools:
+                print(school)
+
+            # Print the bio
+            print(user.bio)
+
+            # Print the distance between the set locaiton and the user
+            print("Distance: " + str(user.distance_km) + "km")
 
             # List of the Images uploaded by the user
             user_photos = list(user.photos)
@@ -89,15 +129,8 @@ def main():
                     "./images/" + filename
                 )
 
-            # Print the schools
-            for school in user.schools:
-                print(school)
+            logInfo('log.txt', user)
 
-            # Print the bio
-            print(user.bio)
-
-            # Print the distance between the set locaiton and the user
-            print("Distance: " + str(user.distance_km) + "km")
             print(
                 "============================================================="
             )
