@@ -4,3 +4,6 @@ test.py
 run.sh
 auth.py
 tinder_logs
+
+pynder/
+venv/
