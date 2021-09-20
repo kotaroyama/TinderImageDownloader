@@ -4,6 +4,20 @@ import os
 import re
 
 
+def create_image_dir():
+    # Get the current working directory
+    cwd = os.getcwd()
+    img_dir = 'images'
+    path = f'{cwd}/{img_dir}'
+
+    # Check for errors (such as the directory already exists)
+    try:
+        os.mkdir(path)
+        print("images directory was created.")
+    except OSError as e:
+        print("Directory wasn't created (possibly because it already exists)")
+
+
 def getNumOfDownloadedImages():
     list_of_index = []
     number_of_images = 0
@@ -49,6 +63,8 @@ Distance: {user.distance_km} km
 
 
 def main():
+    create_image_dir()
+
     # Latitude and longtitude of the location
     #   The default location is Times Square:
     #       LAT = 40.759010
